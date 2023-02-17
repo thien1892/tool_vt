@@ -4,7 +4,7 @@ import datetime
 import os
 
 def check_time_file(file_):
-    return (datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_))) / 3600.0
+    return (datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_))).total_seconds() / 3600.0
 
 
 st.title("Tool hỗ trợ công việc")
