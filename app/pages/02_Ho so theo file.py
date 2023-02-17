@@ -61,7 +61,8 @@ if submitted and file_name is not None:
     name_file_tai_ve = f"hoso-{row['User_phát_triển_TB']}-{str_time}.docx"
     composer.save(name_file_ho_so)
 
-
+    print(name_file_ho_so)
+    
     st.write("File hồ sơ đã tạo xong! Bấm để tải file về:")
     with open(name_file_ho_so, 'rb') as my_file:
         st.download_button(label = name_file_tai_ve,

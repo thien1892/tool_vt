@@ -24,6 +24,6 @@ FILE_GOC = ['merge_mail/IMPOT_CHAN_CHAN_fix.xls', 'merge_mail/HO_SO_PL_PY.docx']
 DANH_SACH_FILE = glob.glob('merge_mail/*.*')
 for file_ in DANH_SACH_FILE:
     if file_ not in FILE_GOC:
-        if check_time_file(file_) > 3:
+        if check_time_file(file_) > 3.0:
             os.remove(file_)
             print(f'remve {file_}')

@@ -403,6 +403,8 @@ if submitted is not None and so_dien_thoai_dang_ky != ' ':
     doc.save(name_file_luu)
     name_file_tai_ve = f"ho_so_{so_dien_thoai_dang_ky}.docx"
 
+    print(f"nv {nhan_vien} da tao ho so {so_dien_thoai_dang_ky}.docx")
+
     st.write("File hồ sơ đã tạo xong! Bấm để tải file về:")
     with open(name_file_luu, 'rb') as my_file:
         st.download_button(label = name_file_tai_ve,
