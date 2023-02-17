@@ -1,5 +1,10 @@
-venv/
-file_/
-automation/
 
-merge_mail/
+# virtual envirenment
+venv/
+# cache
+file_/
+# github reference
+automation/
+# template
+# merge_mail/
+thien.ipynb
