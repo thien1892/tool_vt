@@ -17,7 +17,13 @@ st.write("2. Tạo hồ sơ từ 1 CMT")
 st.write("3. Chuyển ảnh thành PDF")
 st.write("4. Nén file PDF")
 
+# import streamlit as st
+from PIL import Image
 
+image = Image.open('app/data_image/cafe50k.jpg')
+
+st.header("**Những phần mềm này là free, nếu bạn ủng hộ tôi, hãy mua cho tôi 1 ly cà phê:**")
+st.image(image, caption='Quét mã ở đây!', width = 300)
 
 def check_time_file(file_):
     return (datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_))).total_seconds() / 3600.0

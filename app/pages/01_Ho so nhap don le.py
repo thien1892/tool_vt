@@ -9,6 +9,12 @@ import os
 # import uuid
 # import re
 
+st.header('Làm hồ sơ đơn lẻ')
+st.write('''
+    Điền các thông tin dưới đây sau đó bấm nút **Tạo hồ sơ** để xác nhận.
+    ''')
+
+
 BT_KHONG = '□'
 BT_CO = '■'
 
