@@ -43,7 +43,7 @@ with st.form("Tải file cập nhật", clear_on_submit=True):
 
 # file = st.file_uploader("Upload file excel", key="file_uploader", type = 'xls')
 if submitted and file_name is not None:
-    df = pd.read_excel(file_name, dtype = {'SĐT Đăng ký': str, 'Số GTTT': str})
+    df = pd.read_excel(file_name, dtype = {'SĐT Đăng ký': str, 'Số GTTT': str, 'SĐT liên hệ': str})
     df = df.dropna(subset=['SĐT Đăng ký', 'Họ tên'])
     df = df.fillna(" ")
 
