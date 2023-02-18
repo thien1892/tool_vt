@@ -99,12 +99,12 @@ if submitted and file_name is not None:
                             data = my_file,
                             file_name = name_file_tai_ve_pdf)
     
-    st.write("DB username:", st.secrets["MA_BAO_VE"])
+    # st.write("DB username:", st.secrets["MA_BAO_VE"])
 
-    with st.expander("Gửi mail:"):
-        with st.form("Ma bao ve", clear_on_submit= True):
-            ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
-            submitted =st.form_submit_button('Gui mail')
+    # with st.expander("Gửi mail:"):
+    with st.form("Gửi mail", clear_on_submit= True):
+        ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
+        submitted =st.form_submit_button('Gui mail')
     if ma_bao_ve == st.secrets["MA_BAO_VE"] and submitted is not None:
         subject = "An email with attachment from Python by thien1892"
         body = "This is an email with attachment sent from Python by thien1892"
