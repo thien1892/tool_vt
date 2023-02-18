@@ -7,6 +7,14 @@ from docx import Document
 import os
 from CONFIG.config import config
 from doc2pdf import convert
+
+import email, smtplib, ssl
+
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 # import base64
 # import uuid
 # import re
@@ -90,3 +98,53 @@ if submitted and file_name is not None:
             st.download_button(label = name_file_tai_ve_pdf,
                             data = my_file,
                             file_name = name_file_tai_ve_pdf)
+    
+    with st.expander("Gửi mail:", key= "Send_mail_vt"):
+        with st.form("Ma bao ve", clear_on_submit= True):
+            ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
+            submitted =st.form_submit_button('Gui mail')
+        if ma_bao_ve == st.secrets["MA_BAO_VE"] and submitted is not None:
+            subject = "An email with attachment from Python by thien1892"
+            body = "This is an email with attachment sent from Python by thien1892"
+            sender_email = st.secrets["MAIL_VT"]
+            receiver_email = st.secrets["MAIL_VT"]
+            password = st.secrets["PASS_MAIL_VT"]
+
+            message = MIMEMultipart()
+            message["From"] = sender_email
+            message["To"] = receiver_email
+            message["Subject"] = subject
+            message["Bcc"] = receiver_email
+
+            message.attach(MIMEText(body, "plain"))
+
+            filename = name_file_luu_pdf  # In same directory as script
+
+            # Open PDF file in binary mode
+            with open(filename, "rb") as attachment:
+                # Add file as application/octet-stream
+                # Email client can usually download this automatically as attachment
+                part = MIMEBase("application", "octet-stream")
+                part.set_payload(attachment.read())
+
+            # Encode file in ASCII characters to send by email    
+            encoders.encode_base64(part)
+
+            # Add header as key/value pair to attachment part
+            part.add_header(
+                "Content-Disposition",
+                f"attachment; filename= {filename}",
+            )
+
+            # Add attachment to message and convert message to string
+            message.attach(part)
+            text = message.as_string()
+
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL("smtp.viettel.com.vn", 465, context=context) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, text)
+            st.write("Da gui mail thanh cong!!!")
+        else:
+            st.write("Sai ma bao ve")
+
