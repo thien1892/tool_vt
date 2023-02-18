@@ -145,6 +145,6 @@ if submitted and file_name is not None:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, text)
         st.write("Da gui mail thanh cong!!!")
-    else:
-        st.write("Sai ma bao ve")
+    # else:
+    #     st.write("Sai ma bao ve")
 
