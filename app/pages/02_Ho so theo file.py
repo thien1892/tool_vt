@@ -99,7 +99,7 @@ if submitted and file_name is not None:
                             data = my_file,
                             file_name = name_file_tai_ve_pdf)
     
-    with st.expander("Gửi mail:", key= "Send_mail_vt"):
+    with st.expander("Gửi mail:"):
         with st.form("Ma bao ve", clear_on_submit= True):
             ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
             submitted =st.form_submit_button('Gui mail')
