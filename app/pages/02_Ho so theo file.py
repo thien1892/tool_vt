@@ -24,6 +24,19 @@ PATH_FILE_WORD = config.PATH_FILE_WORD
 
 doc = DocxTemplate(PATH_FILE_WORD)
 
+def text_field(label, columns=None, **input_params):
+    c1, c2 = st.columns(columns or [2,5], gap="small")
+
+    # Display field name with some alignment
+    c1.markdown("##")
+    c1.markdown(label)
+    # Sets a default key parameter to avoid duplicate key errors
+    input_params.setdefault("key", label)
+
+    # Forward text input parameters
+    return c2.text_input(" ",value = 'Không bắt buộc điền', **input_params)
+
+
 with st.sidebar:
     st.write("Download file mẫu:")
     with open(PATH_FILE_MAU, 'rb') as my_file:
@@ -47,7 +60,7 @@ st.write('''
 
 with st.form("Tải file cập nhật", clear_on_submit=True):
     file_name = st.file_uploader('',type = ['.xls'])
-    ma_bao_ve = st.text_input("Mã bảo vệ gửi mail", value = "Không bắt buộc điền")
+    ma_bao_ve = text_field("Mã bảo vệ gửi mail")
     submitted = st.form_submit_button("UPLOAD!")   
 
 # file = st.file_uploader("Upload file excel", key="file_uploader", type = 'xls')
@@ -112,7 +125,7 @@ if submitted and file_name is not None:
 
     if ma_bao_ve == st.secrets["MA_BAO_VE"]:
         st.write(ma_bao_ve == st.secrets["MA_BAO_VE"])
-        subject = "An email with attachment from Python by thien1892"
+        subject = f"{name_file_tai_ve_pdf}"
         body = "This is an email with attachment sent from Python by thien1892"
         sender_email = st.secrets["MAIL_VT"]
         receiver_email = st.secrets["MAIL_VT"]
@@ -141,7 +154,7 @@ if submitted and file_name is not None:
         # Add header as key/value pair to attachment part
         part.add_header(
             "Content-Disposition",
-            f"attachment; filename= {filename}",
+            f"attachment; filename= {name_file_tai_ve_pdf}",
         )
 
         # Add attachment to message and convert message to string
@@ -152,7 +165,7 @@ if submitted and file_name is not None:
         with smtplib.SMTP_SSL("smtp.viettel.com.vn", 465, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, text)
-        st.write("Da gui mail thanh cong!!!")
+        st.write("Đã gửi mail thành công, vui lòng check email!")
     # else:
     #     st.write("Sai ma bao ve")
 
