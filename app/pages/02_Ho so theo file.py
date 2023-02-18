@@ -105,6 +105,9 @@ if submitted and file_name is not None:
     with st.form("Gửi mail", clear_on_submit= True):
         ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
         submitted =st.form_submit_button('Gui mail')
+    
+    st.write(ma_bao_ve == st.secrets["MA_BAO_VE"])
+
     if ma_bao_ve == st.secrets["MA_BAO_VE"] and submitted is not None:
         subject = "An email with attachment from Python by thien1892"
         body = "This is an email with attachment sent from Python by thien1892"
