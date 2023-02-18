@@ -6,6 +6,7 @@ from docxcompose.composer import Composer
 from docx import Document
 import os
 from CONFIG.config import config
+from doc2pdf import convert
 # import base64
 # import uuid
 # import re
@@ -235,13 +236,24 @@ if submitted is not None and so_dien_thoai_dang_ky != ' ':
 
     print(f"nv {nhan_vien} da tao ho so {so_dien_thoai_dang_ky}.docx")
 
+    convert(name_file_luu)
+    name_file_luu_pdf = f"merge_mail/ho_so_{so_dien_thoai_dang_ky}.pdf"
+    name_file_tai_ve_pdf = f"ho_so_{so_dien_thoai_dang_ky}.pdf"
+
     st.write("File hồ sơ đã tạo xong! Bấm để tải file về:")
     with open(name_file_luu, 'rb') as my_file:
         st.download_button(label = name_file_tai_ve,
                             data = my_file,
                             file_name = name_file_tai_ve)
+    
+    if os.path.exists(name_file_luu_pdf):
+        with open(name_file_luu_pdf, 'rb') as my_file:
+            st.download_button(label = name_file_tai_ve_pdf,
+                            data = my_file,
+                            file_name = name_file_tai_ve_pdf)
 
-
+    
+    
 
     # ho_ten = st.text_input('Họ tên')
     # ngay_sinh = st.text_input('Ngày sinh')

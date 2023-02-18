@@ -6,6 +6,7 @@ from docxcompose.composer import Composer
 from docx import Document
 import os
 from CONFIG.config import config
+from doc2pdf import convert
 # import base64
 # import uuid
 # import re
@@ -54,6 +55,7 @@ if submitted and file_name is not None:
     df.columns = name_col
 
     for index, row in df.iterrows():
+        # doc = DocxTemplate(PATH_FILE_WORD)
         row_ct = [str(row[i]) for i in name_col]
         context = dict(zip(name_col, row_ct))
         doc.render(context)
@@ -72,9 +74,19 @@ if submitted and file_name is not None:
     composer.save(name_file_ho_so)
 
     print(name_file_ho_so)
+
+    convert(name_file_ho_so)
+    name_file_luu_pdf = f"merge_mail/hoso-{row['User_phát_triển_TB']}-{str_time}.pdf"
+    name_file_tai_ve_pdf = f"hoso-{row['User_phát_triển_TB']}-{str_time}.pdf"
     
     st.write("File hồ sơ đã tạo xong! Bấm để tải file về:")
     with open(name_file_ho_so, 'rb') as my_file:
         st.download_button(label = name_file_tai_ve,
                             data = my_file,
                             file_name = name_file_tai_ve)
+        
+    if os.path.exists(name_file_luu_pdf):
+        with open(name_file_luu_pdf, 'rb') as my_file:
+            st.download_button(label = name_file_tai_ve_pdf,
+                            data = my_file,
+                            file_name = name_file_tai_ve_pdf)
