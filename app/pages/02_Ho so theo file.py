@@ -106,7 +106,7 @@ if submitted and file_name is not None:
     with st.form("Gửi mail vt", clear_on_submit= True):
         ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
         submitted2 =st.form_submit_button('Gui mail')
-        st.write("DB username:", ma_bao_ve)
+    st.write("DB username:", ma_bao_ve)
     
 
 
