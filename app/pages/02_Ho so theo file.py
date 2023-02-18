@@ -99,6 +99,8 @@ if submitted and file_name is not None:
                             data = my_file,
                             file_name = name_file_tai_ve_pdf)
     
+    st.write("DB username:", st.secrets["MA_BAO_VE"])
+
     with st.expander("Gửi mail:"):
         with st.form("Ma bao ve", clear_on_submit= True):
             ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
