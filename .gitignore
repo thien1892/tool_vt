@@ -17,3 +17,4 @@ merge_mail.ipynb
 check_code.ipynb
 
 .streamlit
+app/CONFIG/__pycache__/
