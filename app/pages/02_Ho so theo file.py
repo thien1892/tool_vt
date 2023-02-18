@@ -19,19 +19,6 @@ from email.mime.text import MIMEText
 # import uuid
 # import re
 
-def text_field(label, columns=None, **input_params):
-    c1, c2 = st.columns(columns or [2,5], gap="small")
-
-    # Display field name with some alignment
-    c1.markdown("##")
-    c1.markdown(label)
-    # Sets a default key parameter to avoid duplicate key errors
-    input_params.setdefault("key", label)
-
-    # Forward text input parameters
-    return c2.text_input(" ",value = ' ', **input_params)
-
-
 PATH_FILE_MAU = config.PATH_FILE_MAU
 PATH_FILE_WORD = config.PATH_FILE_WORD
 
@@ -60,9 +47,8 @@ st.write('''
 
 with st.form("Tải file cập nhật", clear_on_submit=True):
     file_name = st.file_uploader('',type = ['.xls'])
-    ma_bao_ve = text_field("Mã bảo vệ gửi mail", value = "Không bắt buộc điền")
+    ma_bao_ve = st.text_input("Mã bảo vệ gửi mail", value = "Không bắt buộc điền")
     submitted = st.form_submit_button("UPLOAD!")   
-
 
 # file = st.file_uploader("Upload file excel", key="file_uploader", type = 'xls')
 if submitted and file_name is not None:
