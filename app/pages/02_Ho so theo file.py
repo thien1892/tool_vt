@@ -5,12 +5,13 @@ from docxtpl import DocxTemplate
 from docxcompose.composer import Composer
 from docx import Document
 import os
+from CONFIG.config import config
 # import base64
 # import uuid
 # import re
 
-PATH_FILE_MAU = "merge_mail/IMPOT_CHAN_CHAN_fix.xls"
-PATH_FILE_WORD = "merge_mail/HO_SO_PL_PY.docx"
+PATH_FILE_MAU = config.PATH_FILE_MAU
+PATH_FILE_WORD = config.PATH_FILE_WORD
 
 doc = DocxTemplate(PATH_FILE_WORD)
 
@@ -20,6 +21,15 @@ with st.sidebar:
         st.download_button(label = 'file_mau_ho_so.xls',
                         data = my_file,
                         file_name = 'file_mau_ho_so.xls')
+    
+    st.write("**Give me a coffee:**")
+    st.write(f'''
+    <img src= {config.IMAGE_COFFEE} 
+    alt="Give me a coffee" 
+    width="90%" 
+    height="auto" />
+    ''',
+        unsafe_allow_html=True)
 
 st.header('Làm hồ sơ theo file')
 st.write('''

@@ -6,7 +6,11 @@ file_/
 # github reference
 automation/
 # template
-# merge_mail/
+merge_mail/*
+!merge_mail/HO_SO_PL_PY.docx
+!merge_mail/IMPOT_CHAN_CHAN_fix.xls
+
 thien.ipynb
 # merge_mail.ipynb
 merge_mail.ipynb
+*/__pycache__
