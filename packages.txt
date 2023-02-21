@@ -1,1 +1,3 @@
 libreoffice-writer
+ubuntu-restricted-extras
+ttf-mscorefonts-installer
