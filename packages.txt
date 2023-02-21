@@ -1,2 +1,2 @@
 libreoffice-writer
-ttf-mscorefonts-installer -y ACCEPT_EULA=Y
+ttf-mscorefonts-installer -y
