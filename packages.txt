@@ -1,2 +1,2 @@
 libreoffice-writer
-ttf-mscorefonts-installer
+msttcorefonts
