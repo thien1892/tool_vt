@@ -78,7 +78,10 @@ if submitted and file_name is not None:
     for index, row in df.iterrows():
         # doc = DocxTemplate(PATH_FILE_WORD)
         row_ct = [str(row[i]) for i in name_col]
+        
         context = dict(zip(name_col, row_ct))
+        #fix in hoa
+        context['TEN_IN_HOA'] = context['Họ_tên'].upper()
         doc.render(context)
         if index == 0:
             doc.save(f"merge_mail/ho_so_{row['SĐT_Đăng_ký']}.docx")
