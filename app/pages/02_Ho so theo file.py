@@ -93,15 +93,15 @@ if submitted and file_name is not None:
         # doc.save(f"merge_mail/ho_so_{row['SĐT_Đăng_ký']}.docx")
     str_time = datetime.now().strftime("%H-%M_%d-%m-%Y")
 
-    name_file_ho_so = f"merge_mail/hoso-{row['User_phát_triển_TB']}-{str_time}.docx"
-    name_file_tai_ve = f"hoso-{row['User_phát_triển_TB']}-{str_time}.docx"
+    name_file_ho_so = f"merge_mail/hoso-{row['NV']}-{str_time}.docx"
+    name_file_tai_ve = f"hoso-{row['NV']}-{str_time}.docx"
     composer.save(name_file_ho_so)
 
     print(name_file_ho_so)
 
     convert(name_file_ho_so)
-    name_file_luu_pdf = f"merge_mail/hoso-{row['User_phát_triển_TB']}-{str_time}.pdf"
-    name_file_tai_ve_pdf = f"hoso-{row['User_phát_triển_TB']}-{str_time}.pdf"
+    name_file_luu_pdf = f"merge_mail/hoso-{row['NV']}-{str_time}.pdf"
+    name_file_tai_ve_pdf = f"hoso-{row['NV']}-{str_time}.pdf"
     
     st.write("File hồ sơ đã tạo xong! Bấm để tải file về:")
     with open(name_file_ho_so, 'rb') as my_file:
