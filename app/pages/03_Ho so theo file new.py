@@ -4,7 +4,7 @@ from datetime import datetime
 from docxtpl import DocxTemplate
 from docxcompose.composer import Composer
 from docx import Document
-from core import text_field
+from core import text_field, get_info, chuyen_khong_dau
 import os
 from CONFIG.config import config
 from doc2pdf import convert
@@ -20,7 +20,7 @@ from email.mime.text import MIMEText
 # import uuid
 # import re
 
-PATH_FILE_MAU = config.PATH_FILE_MAU
+PATH_FILE_MAU = config.PATH_FILE_MAU_NEW
 PATH_FILE_WORD = config.PATH_FILE_WORD
 
 doc = DocxTemplate(PATH_FILE_WORD)
@@ -70,7 +70,65 @@ if submitted and file_name is not None:
         
         context = dict(zip(name_col, row_ct))
         #fix in hoa
-        context['TEN_IN_HOA'] = context['Họ_tên'].upper()
+        ho_ten = context['Họ_tên'].upper()
+        nghe_nghiep = config.NGHE_NGHIEP[int(context.get('Nghề_nghiệp'))]
+        chuc_vu = config.CHUC_VU[int(context.get('Chức_vụ'))]
+
+        cmt, hc, can_cuoc, cm_khac = get_info(['CMND', 'Hộ chiếu', 'Căn cước', 'Khác'], config.GIAY_TO_TUY_THAN.get(context['Loại_GTTT']))
+        nam1, nu = get_info(['Nam', 'Nữ'], config.GIOI_TINH.get(context['Giới_tính'])) 
+        cu_tru, khong_cu_tru = get_info(['Cư trú', 'Không cư trú'], config.TINH_TRANG_CU_TRU.get(context['Tình_trạng_cư_trú']))
+        doc_than, da_ket_hon, _ = get_info(['Độc thân', 'Đã kết hôn', 'Khác'], config.TINH_TRANG_HON_NHAN.get(context['TT_hôn_nhân']))
+
+        the_vat_ly = config.BT_KHONG
+        if context['Phát_hành_thẻ_vật_lý'] == "C":
+            the_vat_ly = config.BT_CO
+            split_ten = chuyen_khong_dau(ho_ten)
+        else:
+            split_ten = ' '* 23
+        
+        context.update(
+            {
+            'TEN_IN_HOA': ho_ten,
+            'NAM1': nam1,
+            'NU': nu,
+            'CU_TRU': cu_tru,
+            'KHONG_CU_TRU': khong_cu_tru,
+            'CMT': cmt,
+            'HO_CHIEU': hc,
+            'CAN_CUOC': can_cuoc,
+            'TICK_CM_KHAC': cm_khac,
+            'CMT_KHAC': ' ',
+            'DOC_THAN': doc_than,
+            'KET_HON': da_ket_hon,
+            # 'HN_KHAC': '□',
+            'NGHE_NGHIEP': nghe_nghiep.split('.')[-1],
+            'CHUC_VU': chuc_vu.split('.')[-1],
+            'THE_VAT_LY': the_vat_ly,
+            '__M_1': split_ten[0],
+            '__M_2': split_ten[1],
+            '__M_3': split_ten[2],
+            '__M_4': split_ten[3],
+            '__M_5': split_ten[4],
+            '__M_6': split_ten[5],
+            '__M_7': split_ten[6],
+            '__M_8': split_ten[7],
+            '__M_9': split_ten[8],
+            '__M_10': split_ten[9],
+            '__M_11': split_ten[10],
+            '__M_12': split_ten[11],
+            '__M_13': split_ten[12],
+            '__M_14': split_ten[13],
+            '__M_15': split_ten[14],
+            '__M_16': split_ten[15],
+            '__M_17': split_ten[16],
+            '__M_18': split_ten[17],
+            '__M_19': split_ten[18],
+            '__M_20': split_ten[19],
+            '__M_21': split_ten[20],
+            '__M_22': split_ten[21],
+            '__M_23': split_ten[22]}
+        )
+
         doc.render(context)
         if index == 0:
             doc.save(f"merge_mail/ho_so_{row['SĐT_Đăng_ký']}.docx")

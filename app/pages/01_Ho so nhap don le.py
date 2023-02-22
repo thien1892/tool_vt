@@ -10,6 +10,8 @@ from doc2pdf import convert
 # import base64
 # import uuid
 # import re
+from core import text_field, date_field, selectbox_field, get_info, chuyen_khong_dau
+
 
 st.header('Làm hồ sơ đơn lẻ')
 st.write('''
@@ -31,62 +33,10 @@ BT_CO = config.BT_CO
 CHUC_VU = config.CHUC_VU
 NGHE_NGHIEP = config.NGHE_NGHIEP
 CONTENT_UP = config.CONTENT_UP
-DICT_KHONG_DAU = config.DICT_KHONG_DAU
-
-def chuyen_khong_dau(text_):
-    text_ = text_.strip()
-    text_ = text_.upper()
-    text_ = text_[:23]
-    # print(len(text_))
-    text_ = text_ + ' '*(23 - len(text_))
-    split_text = [i if i not in DICT_KHONG_DAU.keys() else DICT_KHONG_DAU[i] for i in text_]
-
-    return split_text
-
 
 # PATH_FILE_MAU = "merge_mail/IMPOT_CHAN_CHAN_fix.xls"
 PATH_FILE_WORD = config.PATH_FILE_WORD
-
 doc = DocxTemplate(PATH_FILE_WORD)
-
-
-def text_field(label, columns=None, **input_params):
-    c1, c2 = st.columns(columns or [2,5], gap="small")
-
-    # Display field name with some alignment
-    c1.markdown("##")
-    c1.markdown(label)
-    # Sets a default key parameter to avoid duplicate key errors
-    input_params.setdefault("key", label)
-
-    # Forward text input parameters
-    return c2.text_input(" ",value = ' ', **input_params)
-
-def date_field(label, columns=None, **input_params):
-    c1, c2 = st.columns(columns or [2,5], gap="small")
-
-    # Display field name with some alignment
-    c1.markdown("##")
-    c1.markdown(label)
-    # Sets a default key parameter to avoid duplicate key errors
-    input_params.setdefault("key", label)
-
-    # Forward text input parameters
-    return c2.date_input(" ", **input_params)
-
-def selectbox_field(label, list_name, columns=None, **input_params):
-    c1, c2 = st.columns(columns or [2, 5], gap="small")
-
-    # Display field name with some alignment
-    c1.markdown("##")
-    c1.markdown(label)
-
-    # Sets a default key parameter to avoid duplicate key errors
-    input_params.setdefault("key", label)
-
-    # Forward text input parameters
-    return c2.selectbox(" ",list_name, **input_params)
-
 
 with st.form(key='my_form', clear_on_submit=True):
     ho_ten = text_field('Họ tên')
@@ -116,44 +66,17 @@ if submitted is not None and so_dien_thoai_dang_ky != ' ':
     # print(submitted)
     # print(ho_ten.upper())
     # ho_ten = ho_ten.upper()
+    cmt, hc, can_cuoc, cm_khac = get_info(['CMND', 'Hộ chiếu', 'Căn cước', 'Khác'], loai_giay_to)
+    nam1, nu = get_info(['Nam', 'Nữ'], nam_nu) 
+    cu_tru, khong_cu_tru = get_info(['Cư trú', 'Không cư trú'], tinh_trang_cu_tru)
+    doc_than, da_ket_hon, _ = get_info(['Độc thân', 'Đã kết hôn', 'Khác'], tinh_trang_hon_nhan)
 
-    cmt, hc, can_cuoc, cm_khac = BT_KHONG, BT_KHONG, BT_KHONG, BT_KHONG
-    if loai_giay_to == "CMND":
-        cmt = BT_CO
-    elif loai_giay_to == 'Hộ chiếu':
-        hc = BT_CO
-    elif loai_giay_to == 'Căn cước':
-        can_cuoc = BT_CO
-    else:
-        cm_khac = BT_CO
-
-    nam1, nu = BT_KHONG, BT_KHONG
-    if nam_nu == "Nam":
-        nam1 = BT_CO
-    else:
-        nu = BT_CO
-    
-    cu_tru, khong_cu_tru = BT_KHONG, BT_KHONG
-    if tinh_trang_cu_tru == "Cư trú":
-        cu_tru = BT_CO
-    else:
-        khong_cu_tru = BT_CO
-    
-    doc_than, da_ket_hon = BT_KHONG, BT_KHONG
-    if tinh_trang_hon_nhan == "Độc thân":
-        doc_than = BT_CO
-    elif tinh_trang_hon_nhan == 'Đã kết hôn':
-        da_ket_hon = BT_CO
-    
     the_vat_ly = BT_KHONG
     if nhan_the_vat_ly == "Có":
         the_vat_ly = BT_CO
         split_ten = chuyen_khong_dau(ho_ten)
     else:
         split_ten = ' '* 23
-
-
-
 
     content = {'SĐT_Đăng_ký': so_dien_thoai_dang_ky,
     # 'Họ_tên': ho_ten,
@@ -201,8 +124,8 @@ if submitted is not None and so_dien_thoai_dang_ky != ' ':
     'DOC_THAN': doc_than,
     'KET_HON': da_ket_hon,
     # 'HN_KHAC': '□',
-    'NGHE_NGHIEP': 'Làm việc tự do',
-    'CHUC_VU': 'Lao động tự do',
+    'NGHE_NGHIEP': nghe_nghiep.split('.')[-1],
+    'CHUC_VU': chuc_vu.split('.')[-1],
     'THE_VAT_LY': the_vat_ly,
     '__M_1': split_ten[0],
     '__M_2': split_ten[1],

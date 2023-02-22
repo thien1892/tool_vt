@@ -7,6 +7,7 @@ class config:
     TIME_TO_SAVE_FILE = 3.0
     # path file goc
     PATH_FILE_MAU = "merge_mail/IMPOT_CHAN_CHAN_fix.xls"
+    PATH_FILE_MAU_NEW = "merge_mail/IMPOT_CHAN_CHAN_new.xls"
     PATH_FILE_WORD = "merge_mail/HO_SO_PL_PY.docx"
 
     BT_KHONG = '□'
@@ -54,6 +55,30 @@ class config:
     '10.Nội trợ',
     '11.Nông dân',
     '12.Khác']
+
+    GIOI_TINH = {
+        '1': 'Nữ',
+        '0': 'Nam'
+    }
+
+    TINH_TRANG_CU_TRU = {
+        'C':'Cư trú', 
+        'K':'Không cư trú'
+    }
+
+    GIAY_TO_TUY_THAN = {
+        '0':'CMND',
+        '1':'Hộ chiếu',
+        '6':'Căn cước',
+        '2':'Khác',
+        '9':'Khác'
+    }
+
+    TINH_TRANG_HON_NHAN = {
+        'DT':'Độc thân', 
+        'DKH':'Đã kết hôn', 
+        'KHAC':'Khác'
+    }
 
 
     CONTENT_UP = {'SĐT_Đăng_ký': ' ',
