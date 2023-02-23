@@ -172,9 +172,10 @@ if submitted and file_name is not None:
     # st.write("DB username:", ma_bao_ve)
     
 
-
-    if ma_bao_ve == st.secrets["MA_BAO_VE"]:
-        st.write(ma_bao_ve == st.secrets["MA_BAO_VE"])
+    # st.write(st.secrets["MA_BAO_VE"])
+    # st.write(st.secrets["MA_BAO_VE"] in ma_bao_ve.lower())
+    if st.secrets["MA_BAO_VE"] in ma_bao_ve.lower():
+        st.write(st.secrets["MA_BAO_VE"] in ma_bao_ve.lower())
         subject = f"{name_file_tai_ve_pdf}"
         body = "This is an email with attachment sent from Python by thien1892"
         sender_email = st.secrets["MAIL_VT"]
@@ -189,10 +190,10 @@ if submitted and file_name is not None:
 
         message.attach(MIMEText(body, "plain"))
 
-        filename = name_file_luu_pdf  # In same directory as script
+        # filename = name_file_ho_so # In same directory as script
 
         # Open PDF file in binary mode
-        with open(filename, "rb") as attachment:
+        with open(name_file_luu_pdf, "rb") as attachment:
             # Add file as application/octet-stream
             # Email client can usually download this automatically as attachment
             part = MIMEBase("application", "octet-stream")

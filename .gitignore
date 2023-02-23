@@ -12,9 +12,10 @@ merge_mail/*
 
 thien.ipynb
 # merge_mail.ipynb
-merge_mail.ipynb
+merge_mail_2.ipynb
 */__pycache__
 check_code.ipynb
 
 .streamlit
 app/CONFIG/__pycache__/
+app/CONFIG/t.py

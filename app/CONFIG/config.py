@@ -1,4 +1,9 @@
+import pathlib
+
+
 class config:
+    APP_DIR = pathlib.Path(__file__).parent.absolute()
+    PROJECT_DIR = APP_DIR.parent.absolute()
     # file goc merge mail
     FILE_GOC = ['merge_mail/IMPOT_CHAN_CHAN_fix.xls', 'merge_mail/HO_SO_PL_PY.docx']
     # image to give coffee
