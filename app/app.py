@@ -38,7 +38,7 @@ def check_time_file(file_):
     return (datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_))).total_seconds() / 3600.0
 
 
-FILE_GOC = ['merge_mail/IMPOT_CHAN_CHAN_fix.xls', 'merge_mail/HO_SO_PL_PY.docx']
+FILE_GOC = config.FILE_GOC
 
 DANH_SACH_FILE = glob.glob('merge_mail/*.*')
 for file_ in DANH_SACH_FILE:

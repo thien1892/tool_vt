@@ -20,3 +20,4 @@ check_code.ipynb
 .streamlit
 app/CONFIG/__pycache__/
 app/CONFIG/t.py
+fonts_tnrm/

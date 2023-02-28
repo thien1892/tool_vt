@@ -5,7 +5,9 @@ class config:
     APP_DIR = pathlib.Path(__file__).parent.absolute()
     PROJECT_DIR = APP_DIR.parent.absolute()
     # file goc merge mail
-    FILE_GOC = ['merge_mail/IMPOT_CHAN_CHAN_fix.xls', 'merge_mail/HO_SO_PL_PY.docx']
+    FILE_GOC = ['merge_mail/IMPOT_CHAN_CHAN_fix.xls', 
+                'merge_mail/IMPOT_CHAN_CHAN_new.xls',
+                'merge_mail/HO_SO_PL_PY.docx']
     # image to give coffee
     IMAGE_COFFEE = "https://i.imgur.com/DMb19zW.jpg"
     # time to save file, after to delete

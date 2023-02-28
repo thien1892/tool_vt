@@ -4,7 +4,7 @@ from datetime import datetime
 from docxtpl import DocxTemplate
 from docxcompose.composer import Composer
 from docx import Document
-from core import text_field
+from core import text_field, send_email
 import os
 from CONFIG.config import config
 from doc2pdf import convert
@@ -103,61 +103,12 @@ if submitted and file_name is not None:
             st.download_button(label = name_file_tai_ve_pdf,
                             data = my_file,
                             file_name = name_file_tai_ve_pdf)
-    
-    # st.write("DB username:", st.secrets["MA_BAO_VE"])
-    
-    # with st.expander("Gửi mail:"):
-    # ma_bao_ve = st.empty()
-    # with st.form("Gửi mail vt", clear_on_submit= True):
-    #     ma_bao_ve = st.text_input("Vui lòng nhập mã bảo vệ:")
-    #     submitted2 =st.form_submit_button('Gui mail')
-    # st.write("DB username:", ma_bao_ve)
-    
-
-
-    if ma_bao_ve == st.secrets["MA_BAO_VE"]:
-        st.write(ma_bao_ve == st.secrets["MA_BAO_VE"])
-        subject = f"{name_file_tai_ve_pdf}"
-        body = "This is an email with attachment sent from Python by thien1892"
-        sender_email = st.secrets["MAIL_VT"]
-        receiver_email = st.secrets["MAIL_VT"]
-        password = st.secrets["PASS_MAIL_VT"]
-
-        message = MIMEMultipart()
-        message["From"] = sender_email
-        message["To"] = receiver_email
-        message["Subject"] = subject
-        message["Bcc"] = receiver_email
-
-        message.attach(MIMEText(body, "plain"))
-
-        filename = name_file_luu_pdf  # In same directory as script
-
-        # Open PDF file in binary mode
-        with open(filename, "rb") as attachment:
-            # Add file as application/octet-stream
-            # Email client can usually download this automatically as attachment
-            part = MIMEBase("application", "octet-stream")
-            part.set_payload(attachment.read())
-
-        # Encode file in ASCII characters to send by email    
-        encoders.encode_base64(part)
-
-        # Add header as key/value pair to attachment part
-        part.add_header(
-            "Content-Disposition",
-            f"attachment; filename= {name_file_tai_ve_pdf}",
-        )
-
-        # Add attachment to message and convert message to string
-        message.attach(part)
-        text = message.as_string()
-
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.viettel.com.vn", 465, context=context) as server:
-            server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, text)
-        st.write("Đã gửi mail thành công, vui lòng check email!")
-    # else:
-    #     st.write("Sai ma bao ve")
+      
+    if st.secrets["MA_BAO_VE"] in ma_bao_ve.lower():
+        st.write(st.secrets["MA_BAO_VE"] in ma_bao_ve.lower())
+        send_email(sender_email= st.secrets["MAIL_VT"],
+                   receiver_email= st.secrets["MAIL_VT"],
+                   password= st.secrets["PASS_MAIL_VT"],
+                   body= "Send email from thien1892",
+                   files_attach= [name_file_luu_pdf, name_file_ho_so])
 

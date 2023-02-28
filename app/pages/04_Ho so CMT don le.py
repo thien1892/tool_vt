@@ -3,12 +3,7 @@ from CONFIG.config import config
 from core import text_field, get_info, chuyen_khong_dau
 
 with st.sidebar:
-    st.write("Download file mẫu:")
-    with open(PATH_FILE_MAU, 'rb') as my_file:
-        st.download_button(label = 'file_mau_ho_so.xls',
-                        data = my_file,
-                        file_name = 'file_mau_ho_so.xls')
-    
+    st.write("Download file mẫu:") 
     st.write("**Give me a coffee:**")
     st.write(f'''
     <img src= {config.IMAGE_COFFEE} 
