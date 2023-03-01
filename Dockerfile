@@ -2,6 +2,22 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
+# ---------
+# MS CORE FONTS
+# ---------
+# from http://askubuntu.com/a/25614
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends software-properties-common curl wget cabextract xfonts-utils fontconfig
+RUN apt-get update
+
+
+RUN echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
+RUN wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
+RUN dpkg -i ttf-mscorefonts-installer_3.6_all.deb
+ADD localfonts.conf /etc/fonts/local.conf
+RUN fc-cache -f -v
+
+
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
@@ -11,8 +27,6 @@ RUN apt-get update && apt-get install -y \
     libzbar0 \
     libzbar-dev \
     && rm -rf /var/lib/apt/lists/*
-
-# RUN git clone https://github.com/streamlit/streamlit-example.git .
 
 COPY . .
 
