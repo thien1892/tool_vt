@@ -6,12 +6,12 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-
+import zbarlight
+from PIL import Image
 # from kraken import binarization
 
 
-def text_field(label, columns=None, **input_params):
+def text_field(label, columns=None,value = ' ', **input_params):
     c1, c2 = st.columns(columns or [2,5], gap="small")
 
     # Display field name with some alignment
@@ -21,7 +21,8 @@ def text_field(label, columns=None, **input_params):
     input_params.setdefault("key", label)
 
     # Forward text input parameters
-    return c2.text_input(" ",value = ' ', **input_params)
+    return c2.text_input(" ",value = value, **input_params)
+
 
 def up_field(label, columns=None, **input_params):
     c1, c2 = st.columns(columns or [2,5], gap="small")
@@ -76,6 +77,16 @@ def get_info(list_choice, choice):
     b[list_choice.index(choice)] = config.BT_CO
     return b
 
+def check_user_pass(_user: str, _password: str):
+    context = ssl.create_default_context()
+    try:
+        with smtplib.SMTP_SSL("smtp.viettel.com.vn", 465, context = context) as server:
+            server.login(_user, _password)
+        return True
+    except:
+        return False
+
+# import _io
 def send_email(sender_email: str, 
                receiver_email: str,
                password: str,
@@ -89,9 +100,12 @@ def send_email(sender_email: str,
 
     msg.attach(MIMEText(body, "plain"))
     for _file in files_attach:
-        with open(_file, "rb") as attachment:
-            part = MIMEBase("application", "octet-stream")
-            part.set_payload(attachment.read())  
+        part = MIMEBase("application", "octet-stream")
+        # if not isinstance(_file, _io.BufferedReader): 
+        with open(_file, "rb") as attachment: 
+            part.set_payload(attachment.read())
+        # else:
+        #     part.set_payload(_file.read())  
         encoders.encode_base64(part)
         name_file = _file.split('/')[-1]
         part.add_header('content-disposition', 'attachment', filename=f'{name_file}')
@@ -154,3 +168,21 @@ def get_rois(pil_image):
             cv2.imwrite(f'ROI{area}.png', ROI)
 
     return rois
+
+def read_qr(file_path):
+    # with open(file_path, 'rb') as image_file:
+    image = Image.open(file_path)
+    image = image.resize((200,200)).convert('L')
+    image.load()
+    codes = zbarlight.scan_codes(['qrcode'], image)
+    if codes is not None:
+        return codes[0].decode('utf-8')
+    else:
+        return -1
+
+import os
+def save_img(pil_img,name_file, path_save):
+    image = Image.open(pil_img)
+    path_save_os = os.path.join(path_save, name_file)
+    image.save(path_save_os, quality=90)
+    return path_save_os

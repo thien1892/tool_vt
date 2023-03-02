@@ -4,7 +4,7 @@ from datetime import datetime
 from docxtpl import DocxTemplate
 from docxcompose.composer import Composer
 from docx import Document
-from core import text_field, get_info, chuyen_khong_dau, send_email
+from core import text_field, get_info, chuyen_khong_dau, send_email, check_user_pass
 import os
 from CONFIG.config import config
 from doc2pdf import convert
@@ -44,12 +44,15 @@ with st.sidebar:
 
 st.header('Làm hồ sơ theo file')
 st.write('''
-    Click vào **Browes files** để up file excel. Bấm **UPLOAD!** để xác nhận.
+    Click vào **Browes files** để up file excel. Bấm **UPLOAD!** để xác nhận.\n
+    Nếu gửi mail, điền user và password vào (**tùy chọn không bắt buộc điền**)
     ''')
 
 with st.form("Tải file cập nhật", clear_on_submit=True):
     file_name = st.file_uploader('',type = ['.xls'])
-    ma_bao_ve = text_field("Mã bảo vệ gửi mail")
+    # ma_bao_ve = text_field("Mã bảo vệ gửi mail")
+    user_mail = text_field("User mail viettel", value = '')
+    pass_mail = text_field("Pass mail viettel", value = '', type = 'password')
     submitted = st.form_submit_button("UPLOAD!")   
 
 # file = st.file_uploader("Upload file excel", key="file_uploader", type = 'xls')
@@ -161,13 +164,15 @@ if submitted and file_name is not None:
             st.download_button(label = name_file_tai_ve_pdf,
                             data = my_file,
                             file_name = name_file_tai_ve_pdf)
-            
-    if st.secrets["MA_BAO_VE"] in ma_bao_ve.lower():
-        st.write(st.secrets["MA_BAO_VE"] in ma_bao_ve.lower())
-        send_email(sender_email= st.secrets["MAIL_VT"],
-                   receiver_email= st.secrets["MAIL_VT"],
-                   password= st.secrets["PASS_MAIL_VT"],
+    user_mail = user_mail+'@viettel.com.vn'    
+    if check_user_pass(user_mail, pass_mail):
+        # st.write(st.secrets["MA_BAO_VE"] in ma_bao_ve.lower())
+        send_email(sender_email= user_mail,
+                   receiver_email= user_mail,
+                   password= pass_mail,
                    body= "Send email from thien1892",
                    files_attach= [name_file_luu_pdf, name_file_ho_so])
+    else:
+        st.write('User hoặc pasword sai, không thể gửi mail!')
         
 
