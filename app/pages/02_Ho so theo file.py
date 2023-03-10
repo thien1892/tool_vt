@@ -49,7 +49,7 @@ st.write('''
     ''')
 
 with st.form("Tải file cập nhật", clear_on_submit=True):
-    file_name = st.file_uploader('',type = ['.xls'])
+    file_name = st.file_uploader('',type = ['.xls', '.xlsx'])
     user_mail = text_field("User mail viettel", value = '')
     pass_mail = text_field("Pass mail viettel", value = '', type = 'password')
     submitted = st.form_submit_button("UPLOAD!")   

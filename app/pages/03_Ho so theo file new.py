@@ -4,7 +4,7 @@ from datetime import datetime
 from docxtpl import DocxTemplate
 from docxcompose.composer import Composer
 from docx import Document
-from core import text_field, get_info, chuyen_khong_dau, send_email, check_user_pass
+from core import text_field, get_info, chuyen_khong_dau, send_email, check_user_pass, select_radio
 import os
 from CONFIG.config import config
 from doc2pdf import convert
@@ -22,8 +22,8 @@ from email.mime.text import MIMEText
 
 PATH_FILE_MAU = config.PATH_FILE_MAU_NEW
 PATH_FILE_WORD = config.PATH_FILE_WORD
+PATH_FILE_WORD_NOPL = config.PATH_FILE_WORD_NOPL
 
-doc = DocxTemplate(PATH_FILE_WORD)
 
 
 with st.sidebar:
@@ -49,7 +49,8 @@ st.write('''
     ''')
 
 with st.form("Tải file cập nhật", clear_on_submit=True):
-    file_name = st.file_uploader('',type = ['.xls'])
+    file_name = st.file_uploader('',type = ['.xls', '.xlsx'])
+    co_pl = select_radio("Hình thức hồ sơ:", ["Có phụ lục", 'Không phụ lục'])
     # ma_bao_ve = text_field("Mã bảo vệ gửi mail")
     user_mail = text_field("User mail viettel", value = '')
     pass_mail = text_field("Pass mail viettel", value = '', type = 'password')
@@ -57,6 +58,10 @@ with st.form("Tải file cập nhật", clear_on_submit=True):
 
 # file = st.file_uploader("Upload file excel", key="file_uploader", type = 'xls')
 if submitted and file_name is not None:
+    if co_pl == "Có phụ lục":
+        doc = DocxTemplate(PATH_FILE_WORD)
+    else:
+        doc = DocxTemplate(PATH_FILE_WORD_NOPL)
     df = pd.read_excel(file_name, dtype = {'SĐT Đăng ký': str, 'Số GTTT': str, 'SĐT liên hệ': str})
     df = df.dropna(subset=['SĐT Đăng ký', 'Họ tên'])
     df = df.fillna(" ")

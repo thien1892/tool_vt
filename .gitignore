@@ -8,6 +8,7 @@ automation/
 # template
 merge_mail/*
 !merge_mail/HO_SO_PL_PY.docx
+!merge_mail/HO_SO_NO_PL_PY.docx
 !merge_mail/IMPOT_CHAN_CHAN_fix.xls
 !merge_mail/IMPOT_CHAN_CHAN_new.xls
 

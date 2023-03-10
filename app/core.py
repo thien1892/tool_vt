@@ -61,6 +61,18 @@ def selectbox_field(label, list_name, columns=None, **input_params):
     # Forward text input parameters
     return c2.selectbox(" ",list_name, **input_params)
 
+def select_radio(label, list_name, columns=None, **input_params):
+    c1, c2 = st.columns(columns or [2, 5], gap="small")
+
+    # Display field name with some alignment
+    c1.markdown("##")
+    c1.markdown(label)
+
+    # Sets a default key parameter to avoid duplicate key errors
+    input_params.setdefault("key", label)
+
+    # Forward text input parameters
+    return c2.radio(" ",list_name, **input_params)
 
 def chuyen_khong_dau(text_):
     text_ = text_.strip()

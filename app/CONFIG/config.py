@@ -7,6 +7,7 @@ class config:
     # file goc merge mail
     FILE_GOC = ['merge_mail/IMPOT_CHAN_CHAN_fix.xls', 
                 'merge_mail/IMPOT_CHAN_CHAN_new.xls',
+                'merge_mail/HO_SO_NO_PL_PY.docx',
                 'merge_mail/HO_SO_PL_PY.docx']
     # image to give coffee
     IMAGE_COFFEE = "https://i.imgur.com/DMb19zW.jpg"
@@ -16,6 +17,7 @@ class config:
     PATH_FILE_MAU = "merge_mail/IMPOT_CHAN_CHAN_fix.xls"
     PATH_FILE_MAU_NEW = "merge_mail/IMPOT_CHAN_CHAN_new.xls"
     PATH_FILE_WORD = "merge_mail/HO_SO_PL_PY.docx"
+    PATH_FILE_WORD_NOPL = "merge_mail/HO_SO_NO_PL_PY.docx"
 
     BT_KHONG = '□'
     BT_CO = '■'
