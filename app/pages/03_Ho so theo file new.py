@@ -74,8 +74,8 @@ if submitted and file_name is not None:
         context = dict(zip(name_col, row_ct))
         #fix in hoa
         ho_ten = context['Họ_tên'].upper()
-        nghe_nghiep = config.NGHE_NGHIEP[int(context.get('Nghề_nghiệp'))]
-        chuc_vu = config.CHUC_VU[int(context.get('Chức_vụ'))]
+        nghe_nghiep = config.NGHE_NGHIEP[int(context.get('Nghề_nghiệp')) - 1]
+        chuc_vu = config.CHUC_VU[int(context.get('Chức_vụ')) - 1]
 
         cmt, hc, can_cuoc, cm_khac = get_info(['CMND', 'Hộ chiếu', 'Căn cước', 'Khác'], config.GIAY_TO_TUY_THAN.get(context['Loại_GTTT']))
         nam1, nu = get_info(['Nam', 'Nữ'], config.GIOI_TINH.get(context['Giới_tính'])) 
