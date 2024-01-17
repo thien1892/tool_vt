@@ -30,7 +30,6 @@ st.write("4. Nén file PDF")
 # from PIL import Image
 
 # image = Image.open('app/data_image/cafe50k.jpg')
-
 # st.header("**Những phần mềm này là free, nếu bạn ủng hộ tôi, hãy mua cho tôi 1 ly cà phê:**")
 # st.image(image, caption='Quét mã ở đây!', width = 300)
 

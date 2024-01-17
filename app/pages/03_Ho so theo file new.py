@@ -93,7 +93,7 @@ if submitted and file_name is not None:
             split_ten = chuyen_khong_dau(ho_ten)
         else:
             split_ten = ' '* 23
-        
+
         context.update(
             {
             'TEN_IN_HOA': ho_ten,
