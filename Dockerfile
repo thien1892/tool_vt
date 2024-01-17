@@ -12,8 +12,8 @@ RUN apt-get update
 
 
 RUN echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
-RUN wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
-RUN dpkg -i ttf-mscorefonts-installer_3.6_all.deb
+RUN wget http://ftp.tw.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8.1_all.deb
+RUN dpkg -i ttf-mscorefonts-installer_3.8.1_all.deb
 ADD localfonts.conf /etc/fonts/local.conf
 RUN fc-cache -f -v
 
