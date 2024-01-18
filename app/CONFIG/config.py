@@ -9,7 +9,7 @@ class config:
                 'mau/HO_SO_NO_PL_PY.docx',
                 'mau/HO_SO_PL_PY.docx']
     # image to give coffee
-    IMAGE_COFFEE = "https://i.imgur.com/DMb19zW.jpg"
+    IMAGE_COFFEE = "https://i.imgur.com/yOQmTHZ.jpg"
     # time to save file, after to delete
     TIME_TO_SAVE_FILE = 3.0
     # path file goc
@@ -17,6 +17,7 @@ class config:
     PATH_FILE_MAU_NEW = "mau/IMPOT_CHAN_CHAN_new.xls"
     PATH_FILE_WORD = "mau/HO_SO_PL_PY.docx"
     PATH_FILE_WORD_NOPL = "mau/HO_SO_NO_PL_PY.docx"
+    "mau/HO_SO_NO_PL_PY.docx"
 
     BT_KHONG = '□'
     BT_CO = '■'

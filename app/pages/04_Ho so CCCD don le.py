@@ -24,7 +24,7 @@ with st.sidebar:
 
 st.header('Làm hồ sơ từ CCCD')
 st.write('''
-    Click vào **Browes files** để up file ảnh. Bấm **UPLOAD!** để xác nhận.
+    Click vào **Browes files** để up file ảnh. Bấm **UPLOAD!** để xác nhận. File ảnh CCCD gồm mặt trước & mặt sau, file ảnh QR code chỉ chụp phần QR code trên mặt trước.
     ''')
 
 BT_KHONG = config.BT_KHONG
@@ -41,7 +41,7 @@ with st.form("Tải file cập nhật", clear_on_submit=True):
 
     file_name = up_field('File ảnh CCCD',type = ['.jpg', '.png'], accept_multiple_files= True)
     file_qr = up_field('File ảnh QR code',type = ['.jpg', '.png'])
-    text_qr = text_field("Thông tin QR")
+    # text_qr = text_field("Thông tin QR")
     tinh_trang_cu_tru = selectbox_field('Tình trạng cư trú', ['Cư trú', 'Không cư trú'], index= 0)
     so_dien_thoai_dang_ky = text_field("Số điện thoại đăng ký")
     tinh_trang_hon_nhan = selectbox_field('Tình trạng hôn nhân', ['Độc thân', 'Đã kết hôn', 'Khác'], index= 0)
@@ -63,10 +63,10 @@ if submitted is not None and so_dien_thoai_dang_ky != ' ':
     # print(submitted)
     # print(ho_ten.upper())
     # ho_ten = ho_ten.upper()
-    if len(text_qr.split('|') ) < 5:
-        tt_cccd = read_qr(file_qr)
-    else:
-        tt_cccd = text_qr
+    # if len(text_qr.split('|') ) < 5:
+    #     tt_cccd = read_qr(file_qr)
+    # else:
+    #     tt_cccd = text_qr
     # for _img in file_name:
     # img = Image.open(file_qr)
     # rois = get_rois(img)
@@ -78,6 +78,7 @@ if submitted is not None and so_dien_thoai_dang_ky != ' ':
     #         tt_cccd.append(codes)
     #     except:
     #         pass
+    tt_cccd = read_qr(file_qr)
     
     st.write(tt_cccd)
     if tt_cccd != -1:

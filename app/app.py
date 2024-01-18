@@ -18,13 +18,25 @@ st.title("Tool hỗ trợ công việc")
 st.header("Danh sách các app đã làm:")
 st.write("1. Tạo hồ sơ theo file")
 st.write("2. Tạo hồ sơ đơn lẻ")
+st.write("3. Tạo hồ sơ từ ảnh chụp CMT")
 
 st.header("Danh sách các app đang làm:")
 
-st.write("1. Tạo hồ sơ từ nhiều CMT")
-st.write("2. Tạo hồ sơ từ 1 CMT")
-st.write("3. Chuyển ảnh thành PDF")
-st.write("4. Nén file PDF")
+st.write("1. Tải ảnh từ google Driver theo danh sách -> ghép PDF và nén file")
+st.write("2. Chuyển ảnh thành PDF")
+st.write("3. Nén file PDF")
+
+st.write("**Nếu bạn thấy hữu ích, hãy mua cho tôi 1 cốc cafe!**")
+st.write(f'''
+    <img src= {config.IMAGE_COFFEE} 
+    alt="Give me a coffee" 
+    width="200" 
+    height="200"
+    padding-left="300"
+    padding-top="300"
+    />
+    ''',
+    unsafe_allow_html=True)
 
 # import streamlit as st
 # from PIL import Image

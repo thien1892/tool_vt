@@ -15,6 +15,8 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import logging
+logging.basicConfig(level = logging.INFO) # to show logging
 
 # import base64
 # import uuid
@@ -37,10 +39,12 @@ with st.sidebar:
     st.write(f'''
     <img src= {config.IMAGE_COFFEE} 
     alt="Give me a coffee" 
-    width="90%" 
+    width="90%"
     height="auto" />
     ''',
         unsafe_allow_html=True)
+
+
 
 st.header('Làm hồ sơ theo file')
 st.write('''
@@ -56,8 +60,12 @@ with st.form("Tải file cập nhật", clear_on_submit=True):
     pass_mail = text_field("Pass mail viettel", value = '', type = 'password')
     submitted = st.form_submit_button("UPLOAD!")   
 
+
+
+
 # file = st.file_uploader("Upload file excel", key="file_uploader", type = 'xls')
 if submitted and file_name is not None:
+    logging.info('Start create file ...')
     if co_pl == "Có phụ lục":
         doc = DocxTemplate(PATH_FILE_WORD)
     else:
@@ -71,6 +79,8 @@ if submitted and file_name is not None:
     text_col = [" "] * len(name_col)
 
     df.columns = name_col
+    
+    logging.info(f'File have shape: {df.shape}')
 
     for index, row in df.iterrows():
         # doc = DocxTemplate(PATH_FILE_WORD)
@@ -158,6 +168,10 @@ if submitted and file_name is not None:
     name_file_luu_pdf = f"merge_mail/hoso-{row['NV']}-{str_time}.pdf"
     name_file_tai_ve_pdf = f"hoso-{row['NV']}-{str_time}.pdf"
     
+    
+    # logging.info('End create file ...')
+    logging.info(f'{user_mail} : {pass_mail}')
+    
     st.write("File hồ sơ đã tạo xong! Bấm để tải file về:")
     with open(name_file_ho_so, 'rb') as my_file:
         st.download_button(label = name_file_tai_ve,
@@ -171,6 +185,7 @@ if submitted and file_name is not None:
                             file_name = name_file_tai_ve_pdf)
     user_mail = user_mail+'@viettel.com.vn'    
     if check_user_pass(user_mail, pass_mail):
+        logging.info(f'Check ok: {user_mail} : {pass_mail}')
         # st.write(st.secrets["MA_BAO_VE"] in ma_bao_ve.lower())
         send_email(sender_email= user_mail,
                    receiver_email= user_mail,
@@ -179,5 +194,16 @@ if submitted and file_name is not None:
                    files_attach= [name_file_luu_pdf, name_file_ho_so])
     else:
         st.write('User hoặc pasword sai, không thể gửi mail!')
-        
+    
+    st.write("**Nếu bạn tiết kiệm được thời gian, hãy mua cho tôi 1 cốc cafe!**")
+    st.write(f'''
+    <img src= {config.IMAGE_COFFEE} 
+    alt="Give me a coffee" 
+    width="200" 
+    height="200"
+    padding-left="300"
+    padding-top="300"
+    />
+    ''',
+    unsafe_allow_html=True)
 
